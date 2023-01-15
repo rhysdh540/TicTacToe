@@ -1,5 +1,9 @@
+import java.io.PrintStream;
+import java.util.Scanner;
+
 public class Main {
-    public static final String RED = "\033[31m",
+    public static final String
+            RED = "\033[31m",
             EMPTY_SCREEN = "\033[2J\033[H",
             RESET = Game.RESET,
             BOLD = "\033[1m",
@@ -7,18 +11,19 @@ public class Main {
             ORANGE = "\033[38;2;245;180;40m";
 
     public static void main(String[]a){run();}
-    public static void run() {
-        java.util.Scanner sc = new java.util.Scanner(System.in);
-        java.io.PrintStream so = System.out;
+
+    private static void run() {
+        Scanner sc = new Scanner(System.in);
+        PrintStream so = System.out;
         Game g = new Game();
         so.println(EMPTY_SCREEN + "Welcome to Tic Tac Toe!");
         so.println("Player 1 is X, Player 2 is O");
         while(g.isWon()==0){
             String input = "";
-            while(input.equals("") && g.isWon() == 0){
+            while(input.equals("")){
                 so.println("Player " + GREEN + BOLD + (g.getCurrentPlayer()+1) + RESET + "'s turn");
                 g.print();
-                so.print("Enter the coordinates of the square you want to play in (ex: " + RED + BOLD + "\"1, 1\"" + RESET + "): " + RED + BOLD);
+                so.print("Enter the coordinates of the square you want to play in (" + RED + BOLD + "\"x, y\"" + RESET + "): " + RED + BOLD);
                 input = sc.nextLine();
                 so.print(RESET);
                 try{

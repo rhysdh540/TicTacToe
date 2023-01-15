@@ -20,58 +20,47 @@ public class Game {
         }
         return false;
     }
+
+    /**
+     * Checks if the game is won and returns the winner if applicable.
+     * @return 0 if no one has won, 1 if X has won, 2 if O has won, 3 if it's a draw
+     */
     public int isWon() {
-        if(board[0][0]==board[0][1] && board[0][1]==board[0][2] && board[0][0]!=0){
-            return board[0][0];
-        }
-        if(board[1][0]==board[1][1] && board[1][1]==board[1][2] && board[1][0]!=0){
-            return board[1][0];
-        }
-        if(board[2][0]==board[2][1] && board[2][1]==board[2][2] && board[2][0]!=0){
-            return board[2][0];
-        }
-        if(board[0][0]==board[1][0] && board[1][0]==board[2][0] && board[0][0]!=0){
-            return board[0][0];
-        }
-        if(board[0][1]==board[1][1] && board[1][1]==board[2][1] && board[0][1]!=0){
-            return board[0][1];
-        }
-        if(board[0][2]==board[1][2] && board[1][2]==board[2][2] && board[0][2]!=0){
-            return board[0][2];
-        }
-        if(board[0][0]==board[1][1] && board[1][1]==board[2][2] && board[0][0]!=0){
-            return board[0][0];
-        }
-        if(board[0][2]==board[1][1] && board[1][1]==board[2][0] && board[0][2]!=0){
-            return board[0][2];
-        }
         for(int i = 0; i < 3; i++){
-            for(int j = 0; j < 3; j++){
+            if(board[i][0]==board[i][1] && board[i][1]==board[i][2] && board[i][0]!=0)
+                return board[i][0];
+            if(board[0][i]==board[1][i] && board[1][i]==board[2][i] && board[0][i]!=0)
+                return board[0][i];
+        }
+
+        if(board[0][0]==board[1][1] && board[1][1]==board[2][2] && board[0][0]!=0)
+            return board[0][0];
+        if(board[0][2]==board[1][1] && board[1][1]==board[2][0] && board[0][2]!=0)
+            return board[0][2];
+
+        for(int i = 0; i < 3; i++)
+            for(int j = 0; j < 3; j++)
                 if(board[i][j]==0)
                     return 0;
-            }
-        }
         return 3;
     }
     public int getCurrentPlayer() {
         return currentPlayer;
     }
     public void print(){
-        char[][] board = new char[3][3];
+        char[][] charBoard = new char[3][3];
         for(int i = 0; i < 3; i++){
             for(int j = 0; j < 3; j++){
-                if(this.board[i][j]==0){
-                    board[i][j] = ' ';
-                } else if(this.board[i][j]==1){
-                    board[i][j] = 'X';
-                } else {
-                    board[i][j] = 'O';
-                }
+                charBoard[i][j] = switch(board[i][j]) {
+                    case 0 -> ' ';
+                    case 1 -> 'X';
+                    default -> 'O';
+                };
             }
         }
         System.out.println("  1   2   3");
         for(int i = 0; i < 3; i++){
-            System.out.println(RESET + (i+1) + " " + (i==2 ? "" : UNDERLINE) + board[i][0] + " | " + board[i][1] + " | " + board[i][2]);
+            System.out.println(RESET + (i+1) + " " + (i==2 ? "" : UNDERLINE) + charBoard[i][0] + " | " + charBoard[i][1] + " | " + charBoard[i][2]);
         }
         System.out.print(RESET);
     }
