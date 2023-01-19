@@ -1,5 +1,6 @@
 public class Game {
     // 0: empty, 1: X, 2: O
+    @SuppressWarnings("FieldMayBeFinal")
     private int[][] board = new int[3][3];
     // 0: X: 1: O
     private int currentPlayer = 0;
@@ -14,7 +15,7 @@ public class Game {
     }
     public boolean play(int x, int y) {
         if (board[x][y] == 0) {
-            board[x][y] = currentPlayer+1;
+            board[x][y] = currentPlayer + 1;
             currentPlayer = (currentPlayer + 1) % 2;
             return true;
         }
@@ -25,7 +26,7 @@ public class Game {
      * Checks if the game is won and returns the winner if applicable.
      * @return 0 if no one has won, 1 if X has won, 2 if O has won, 3 if it's a draw
      */
-    public int isWon() {
+    public int checkForWin() {
         for(int i = 0; i < 3; i++){
             if(board[i][0]==board[i][1] && board[i][1]==board[i][2] && board[i][0]!=0)
                 return board[i][0];
