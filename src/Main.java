@@ -10,11 +10,13 @@ public class Main {
             RESET = Game.RESET,
             BOLD = "\033[1m",
             GREEN = "\033[92m",
-            ORANGE = "\033[38;2;245;180;40m";
+            ORANGE = "\033[38;2;245;180;40m",
+            BLUE = "\033[94m",
+            ITALICS = "\033[3m";
 
-    public static void main(String[]args){run();}
+    public static void main(String[]args){ runText(); }
 
-    private static void run() {
+    private static void runText() {
         Scanner sc = new Scanner(System.in);
         Game game = new Game();
 
@@ -25,8 +27,9 @@ public class Main {
             while(input.equals("")){
                 System.out.println("Player " + GREEN + BOLD + (game.getCurrentPlayer()+1) + RESET + "'s turn");
                 game.print();
-                System.out.print("Enter the coordinates of the square you want to play in (" + RED + BOLD + "x, y" + RESET + "): " + RED + BOLD);
+                System.out.print("Enter the coordinates of the square you want to play in (" + RED + BOLD + "x, y" + RESET + "): " + BLUE + ITALICS);
                 input = sc.nextLine();
+                if(input.equals("quit")) return;
                 System.out.print(RESET);
                 try{
                     String[]
@@ -58,7 +61,7 @@ public class Main {
         System.out.print("Would you like to play again? ");
         String end = sc.nextLine();
         if("y".equalsIgnoreCase(end) || "yes".equalsIgnoreCase(end))
-            new Thread(Main::run).start(); // avoid StackOverflowError in case somebody wants to play 10000 games of ttt
+            new Thread(Main::runText).start(); // avoid StackOverflowError in case somebody wants to play 10000 games of ttt
         else sc.close();
     }
 }
