@@ -2,6 +2,8 @@
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
+TicTacToe.iml
+.idea/
 
 ### Eclipse ###
 .apt_generated
