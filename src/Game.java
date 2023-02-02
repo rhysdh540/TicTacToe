@@ -13,7 +13,9 @@ public class Game {
             }
         }
     }
-    public boolean play(int x, int y) {
+    public boolean play(int x, int y) throws Exception {
+        if(x<0 || x>2 || y<0 || y>2)
+            throw new Exception("Invalid coordinates! (x and y must be between 1 and 3)");
         if (board[x][y] == 0) {
             board[x][y] = currentPlayer + 1;
             currentPlayer = (currentPlayer + 1) % 2;

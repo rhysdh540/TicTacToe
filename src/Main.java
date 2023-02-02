@@ -19,7 +19,6 @@ public class Main {
     private static void runText() {
         Scanner sc = new Scanner(System.in);
         Game game = new Game();
-
         System.out.println(EMPTY_SCREEN + "Welcome to Tic Tac Toe!");
         System.out.println("Player 1 is X, Player 2 is O");
         while(game.checkForWin()==0){
@@ -32,22 +31,20 @@ public class Main {
                 if(input.equals("quit")) return;
                 System.out.print(RESET);
                 try{
-                    String[]
-                             in1 = input.split(", "),
-                             in2 = input.split(" "),
-                             in3 = input.split(","),
-                             coords = in1.length==2 ? in1 : in2.length==2 ? in2 : in3.length==2 ? in3 : null;
-                    assert coords != null;
-                    int x = Integer.parseInt(coords[0]);
-                    int y = Integer.parseInt(coords[1]);
+                    String[] coords = input.split(", | |,");
+
+                    if(coords.length!=2 || !coords[0].matches("\\d+") || !coords[1].matches("\\d+"))
+                        throw new Exception("Invalid input! Please enter two numbers.");
+
+                    int x = Integer.parseInt(coords[0]),
+                        y = Integer.parseInt(coords[1]);
                     System.out.print(EMPTY_SCREEN);
-                    if(!game.play(y-1,x-1)){
-                        System.out.println(RED + "That square is already taken!" + RESET);
-                        input = "";
-                    }
+
+                    if(!game.play(y-1,x-1))
+                        throw new Exception("That square is already taken!");
                 } catch (Exception e){
                     System.out.print(EMPTY_SCREEN);
-                    System.out.println(RED + "Invalid input!" + RESET);
+                    System.out.println(RED + e.getMessage() + RESET);
                     input = "";
                 }
             }
